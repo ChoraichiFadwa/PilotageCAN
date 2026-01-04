@@ -11,8 +11,7 @@ Le Maroc accueille la CAN 2025 (21 décembre 2025 - 18 janvier 2026) avec :
 - **120+ chantiers d'infrastructures** mobilisant 12 milliards MAD
 - **9 stades répartis dans 6 villes** (Rabat, Casablanca, Marrakech, Agadir, Tanger, Fès)
 - **8 fan zones** accueillant jusqu'à 50 000 personnes simultanément
-- **Période critique** : coïncidant avec vacances de Noël/Nouvel An (afflux touristique exceptionnel)
-- **Test décisif** avant la Coupe du Monde 2030
+- **Période critique** : coïncidant avec vacances de Nouvel An (afflux touristique exceptionnel)
 
 ### Problème Métier Identifié
 
@@ -24,11 +23,6 @@ Les organisateurs font face à des **défis opérationnels critiques** révélé
 - 🏟️ **Gestion affluence** : stades semi-vides vs milliers de supporters bloqués à l'extérieur
 - 🚗 **Mobilité** : congestion routes d'accès aux stades
 
-**Impact Business :**
-- Risque d'image pour le Maroc avant Mondial 2030
-- Perte revenus (billetterie, tourisme)
-- Insatisfaction supporters et délégations
-- Coûts d'interventions d'urgence non planifiées
 
 ### 🎯 Problématique Centrale
 
@@ -40,11 +34,11 @@ Les organisateurs font face à des **défis opérationnels critiques** révélé
 
 ### Vue d'Ensemble
 Une **plateforme cloud décisionnelle** qui :
-1. ✅ Centralise les données de **5 domaines critiques**
-2. ✅ Transforme les données brutes en **indicateurs actionnables**
-3. ✅ Détecte les **situations à risque** via scoring intelligent
-4. ✅ Génère des **alertes proactives** pour aide à la décision
-5. ✅ Visualise en temps réel via **dashboards interactifs**
+1. Centralise les données de **5 domaines critiques**
+2. Transforme les données brutes en **indicateurs actionnables**
+3. Détecte les **situations à risque** via scoring intelligent
+4. Génère des **alertes proactives** pour aide à la décision
+5. Visualise en temps réel via **dashboards interactifs**
 
 ### Valeur Ajoutée Métier
 - **Anticipation** : détecter les risques 24-48h avant
@@ -176,81 +170,10 @@ Une **plateforme cloud décisionnelle** qui :
 
 ---
 
-## 🗂️ MODÉLISATION DÉCISIONNELLE (Schéma Étoile)
 
-### 🌟 Table de Faits
+##  MODULE INTELLIGENCE & ANTICIPATION
 
-**Fact_Operational_Events**
-```sql
-event_id            BIGINT PRIMARY KEY
-date_id             INT (FK → Dim_Date)
-zone_id             INT (FK → Dim_Zone)
-event_type_id       INT (FK → Dim_EventType)
-severity_id         INT (FK → Dim_Severity)
--- Métriques
-duration_minutes    INT
-impact_score        DECIMAL(5,2)
-resolution_time_min INT
-affected_people     INT
-cost_estimate_mad   DECIMAL(12,2)
-```
-
----
-
-### 🌍 Tables de Dimensions
-
-**Dim_Date** (Temporelle)
-```sql
-date_id             INT PRIMARY KEY
-full_date           DATE
-day_name            VARCHAR(10)
-match_day           BOOLEAN
-peak_period         BOOLEAN (vacances)
-week_number         INT
-```
-
-**Dim_Zone** (Spatiale)
-```sql
-zone_id             INT PRIMARY KEY
-zone_name           VARCHAR(100)
-city                VARCHAR(50)
-zone_type           VARCHAR(20) (stade/fan_zone/route/aéroport)
-capacity_max        INT
-latitude            DECIMAL(10,8)
-longitude           DECIMAL(11,8)
-```
-
-**Dim_EventType** (Classification)
-```sql
-event_type_id       INT PRIMARY KEY
-type_name           VARCHAR(50)
-domain              VARCHAR(20) (mobilité/sécurité/météo/affluence)
-criticality_base    INT (1-5)
-```
-
-**Dim_Severity** (Gravité)
-```sql
-severity_id         INT PRIMARY KEY
-severity_level      VARCHAR(20) (Faible/Moyen/Élevé/Critique)
-color_code          VARCHAR(20) (Vert/Orange/Rouge)
-action_required     VARCHAR(10) (Info/Veille/Action/Urgence)
-```
-
-**Dim_Infrastructure**
-```sql
-infra_id            INT PRIMARY KEY
-infra_name          VARCHAR(100)
-infra_type          VARCHAR(30) (stade/parking/hôpital/commissariat)
-zone_id             INT (FK → Dim_Zone)
-capacity            INT
-opening_hours       VARCHAR(50)
-```
-
----
-
-## 🧠 MODULE INTELLIGENCE & ANTICIPATION
-
-### 🎯 Composant 1 : Scoring de Risque
+###  Composant 1 : Scoring de Risque
 **Objectif :** Calculer un score 0-100 pour chaque zone/période
 
 **Algorithme Simple :**
@@ -314,11 +237,11 @@ Recommandation : Capacité OK mais surveiller flux parking
 **Audience :** Directeurs organisation, CAF, Ministère Intérieur
 
 **KPIs Affichés :**
-- 🔢 **Nombre incidents actifs** (temps réel)
-- 🏟️ **Stades/Fan zones sous tension** (% capacité)
-- 🚦 **Niveau alerte global** (couleur dominante)
-- ⏱️ **Temps moyen résolution incidents** (objectif < 30 min)
-- 📍 **Carte de chaleur risque** par zone géographique
+-  **Nombre incidents actifs** (temps réel)
+-  **Stades/Fan zones sous tension** (% capacité)
+-  **Niveau alerte global** (couleur dominante)
+-  **Temps moyen résolution incidents** (objectif < 30 min)
+-  **Carte de chaleur risque** par zone géographique
 
 **Visuels :**
 - Carte Maroc interactive (zones colorées rouge/orange/vert)
@@ -332,15 +255,15 @@ Recommandation : Capacité OK mais surveiller flux parking
   
 ---
 
-### 🚦 Dashboard 2 : Mobilité & Accès Stades
+###  Dashboard 2 : Mobilité & Accès Stades
 
 **Audience :** Responsables transport, police routière
 
 **Analyses :**
-- 🗺️ **Carte trafic temps réel** par axe routier
-- ⏱️ **Temps d'accès moyens** depuis fan zones → stades
-- 🅿️ **Taux d'occupation parkings** officiels
-- 🚧 **Incidents routiers actifs** (localisation + gravité)
+-  **Carte trafic temps réel** par axe routier
+-  **Temps d'accès moyens** depuis fan zones → stades
+-  **Taux d'occupation parkings** officiels
+-  **Incidents routiers actifs** (localisation + gravité)
 
 **Alertes Automatiques :**
 - Congestion > 80% capacité route
@@ -353,19 +276,19 @@ Recommandation : Capacité OK mais surveiller flux parking
 
 ---
 
-### 🌟 Dashboard 3 : Fan Zones & Sécurité
+###  Dashboard 3 : Fan Zones & Sécurité
 
 **Audience :** Responsables fan zones, sécurité civile
 
 **Monitoring :**
-- 📊 **Affluence temps réel** par fan zone (jauge % capacité)
-- 🌤️ **Alertes météo** impactant infrastructures temporaires
-- 🚨 **Incidents sécurité** (type, gravité, résolution)
-- 🏥 **Disponibilité ressources médicales** (ambulances, postes secours)
+-  **Affluence temps réel** par fan zone (jauge % capacité)
+-  **Alertes météo** impactant infrastructures temporaires
+-  **Incidents sécurité** (type, gravité, résolution)
+-  **Disponibilité ressources médicales** (ambulances, postes secours)
 
 **Cas d'Usage Réel :**
 > **Alerte automatique 16 déc. 14h** :
-> "🔴 Fan Zone Casablanca (El Hank) : vents prévus 80 km/h (20h-23h).
+> " Fan Zone Casablanca (El Hank) : vents prévus 80 km/h (20h-23h).
 > Structure temporaire à risque. Recommandation : évacuation préventive 18h."
 
 **Heatmap Spéciale :**
@@ -399,239 +322,3 @@ Recommandation : Capacité OK mais surveiller flux parking
 - **Sécurité** : Azure AD authentication, RBAC par rôle utilisateur
 
 ---
-
-## 📁 LIVRABLES COMPLETS
-
-### Structure Projet GitHub
-```
-CAN-2025-Decision-Platform/
-│
-├── 📂 data/
-│   ├── raw/                    # CSV bruts (mobilité, météo, etc.)
-│   ├── curated/                # Données nettoyées (Parquet)
-│   └── analytics/              # Schéma étoile final
-│
-├── 📂 ingestion/
-│   ├── adf_pipelines/          # JSON Azure Data Factory
-│   └── data_generator/         # Scripts Python génération données réalistes
-│
-├── 📂 transformation/
-│   ├── synapse_sql/            # Scripts SQL transformations
-│   └── data_quality/           # Règles validation qualité
-│
-├── 📂 data_model/
-│   ├── star_schema.sql         # DDL schéma étoile complet
-│   └── sample_queries.sql      # Requêtes analytiques exemples
-│
-├── 📂 intelligence/
-│   ├── risk_scoring.py         # Calcul scores risque
-│   ├── anomaly_detection.py    # Détection anomalies
-│   └── affluence_predictor.py  # Modèle prédiction ML
-│
-├── 📂 dashboards/
-│   ├── command_center.pbix     # Dashboard 1
-│   ├── mobilite.pbix           # Dashboard 2
-│   └── fanzones_securite.pbix  # Dashboard 3
-│
-├── 📂 architecture/
-│   ├── architecture_globale.png        # Schéma complet
-│   ├── data_flow_diagram.png           # Flux données détaillé
-│   └── infrastructure_diagram.png      # Composants Azure
-│
-├── 📂 documentation/
-│   ├── guide_utilisation.pdf   # Manuel utilisateurs
-│   ├── justification_choix.md  # Explications techniques
-│   └── roadmap_mondial2030.md  # Évolutions futures
-│
-├── 📂 demo/
-│   ├── video_demo_3min.mp4     # Vidéo présentation
-│   ├── scenario_utilisation.pdf # Cas d'usage step-by-step
-│   └── screenshots/            # Captures dashboards
-│
-└── README.md                   # Documentation projet
-```
-
----
-
-## 🎬 SCÉNARIO DE DÉMONSTRATION (3 minutes)
-
-### Acte 1 : Le Problème (30 secondes)
-**Narrateur :**
-> "16 décembre 2025, Casablanca. Une fan zone de 20 000 places s'effondre sous les intempéries. Pas d'alerte préalable. Organisateurs pris au dépourvu. Ce n'est qu'un exemple des défis opérationnels de la CAN."
-
-**Visuel :** Photos réelles incident El Hank
-
----
-
-### Acte 2 : La Solution (90 secondes)
-**Démonstration Live Dashboard Command Center :**
-
-**Étape 1 - Vision globale :**
-> "Voici notre Command Center. En un coup d'œil : 3 zones en alerte rouge, 5 en orange. La carte de chaleur identifie Rabat comme critique ce soir."
-
-**Étape 2 - Drill-down Rabat :**
-> "Zoom sur Rabat : Fan Zone Mohammed V à 92% capacité + météo dégradée prévue 21h. Score risque : 78/100 → Alerte automatique générée."
-
-**Étape 3 - Recommandations :**
-> "Le système recommande : ouvrir Fan Zone alternative Agdal (15 000 places) + activer communication supporters via app Yalla."
-
-**Étape 4 - What-If Interactif :**
-> [Démo live] "Et si on ajoute 5 navettes supplémentaires ?" 
-> → Clic slider → Score risque descend à 62 → Passage orange
-> "Décision validée en temps réel."
-
----
-
-### Acte 3 : Impact & Vision (30 secondes)
-**Chiffres Clés :**
-- ✅ Temps détection incidents : **-85%** (60 min → 5 min)
-- ✅ Anticipation : **24-48h** avant situations critiques
-- ✅ Coût évité estimé : **2M MAD** par incident majeur prévenu
-- ✅ **Réutilisable** : Mondial 2030, autres événements
-
-**Phrase Finale :**
-> "De la data à la décision. Pas de complexité inutile. Juste l'essentiel pour que la CAN 2025 soit un succès... et un tremplin vers 2030."
-
----
-
-## 🎯 ALIGNEMENT CRITÈRES JURY SBI (Notation Estimée)
-
-### 1️⃣ Compréhension du Sujet (20%) → **18/20**
-✅ Problème métier réel et documenté (incidents Casablanca, billetterie)  
-✅ Contexte CAN 2025 parfaitement maîtrisé (120 chantiers, 8 fan zones, calendrier)  
-✅ Enjeux business clairs (image Maroc, test Mondial 2030)  
-✅ Public cible défini (organisateurs, CAF, autorités)  
-
-**Justification :** Pas un projet théorique. Basé sur faits réels + documentation officielle.
-
----
-
-### 2️⃣ Qualité Analyse & Solution (25%) → **23/25**
-✅ Données pertinentes et réalistes (5 domaines complémentaires)  
-✅ Modélisation OLAP rigoureuse (schéma étoile optimisé)  
-✅ Transformation structurée (Raw → Curated → Analytics)  
-✅ KPIs actionnables (temps détection < 5 min, résolution < 30 min)  
-✅ Gouvernance data (qualité, lineage)  
-
-**Justification :** Architecture data solide. Pas d'over-engineering. Focus métier.
-
----
-
-### 3️⃣ Choix Techniques (20%) → **19/20**
-✅ Stack Azure moderne et cohérente (Data Factory, Synapse, Power BI)  
-✅ Justification claire de chaque composant  
-✅ Pas de Spark on-premise inutile (Synapse suffit)  
-✅ Python pour intelligence (pandas, scikit-learn) = pragmatique  
-✅ Cloud-native = scalabilité + sécurité  
-
-**Justification :** Technologies adaptées au volume. Pas de buzz tech. Production-ready.
-
----
-
-### 4️⃣ Présentation & Clarté (20%) → **19/20**
-✅ Schémas architecture clairs (3 niveaux de détail)  
-✅ Documentation exhaustive (guide, justifications, roadmap)  
-✅ Dashboards visuels et lisibles  
-✅ Scénario démonstration préparé (3 min chrono)  
-✅ Vidéo démo + screenshots  
-
-**Justification :** Livrables professionnels. Prêt pour présentation jury.
-
----
-
-### 5️⃣ Innovation & Valeur Ajoutée (15%) → **14/15**
-✅ **Scoring risque** = simple mais impactant  
-✅ **Alertes proactives** = anticipation vs réaction  
-✅ **What-if interactif** = wow factor sans complexité  
-✅ **Carte chaleur** = visuel percutant  
-✅ **Vision 2030** = réutilisabilité démontrée  
-
-**Justification :** Innovation d'usage, pas de techno. Différenciation garantie vs dashboards classiques.
-
----
-
-## 🏆 NOTE GLOBALE ESTIMÉE : **93/100**
-
-### Décomposition :
-| Critère | Poids | Note | Points |
-|---------|-------|------|--------|
-| Compréhension | 20% | 18/20 | 18 |
-| Qualité solution | 25% | 23/25 | 23 |
-| Choix techniques | 20% | 19/20 | 19 |
-| Présentation | 20% | 19/20 | 19 |
-| Innovation | 15% | 14/15 | 14 |
-| **TOTAL** | **100%** | | **93/100** |
-
----
-
-## ⚡ POINTS DE VIGILANCE & CONTRE-RISQUES
-
-### ❌ Erreurs à ÉVITER Absolument
-1. **Dire** : "Je vais résoudre tous les problèmes CAN"  
-   ✅ **Dire** : "Aide à la décision sur incidents opérationnels critiques"
-
-2. **Dire** : "Big Data + Spark indispensable"  
-   ✅ **Dire** : "Architecture cloud scalable adaptée au volume réel"
-
-3. **Dire** : "IA révolutionnaire de prédiction"  
-   ✅ **Dire** : "Scoring intelligent + prédiction simple mais actionnable"
-
-4. **Faire** : Dashboard avec 50 KPIs illisibles  
-   ✅ **Faire** : 3 dashboards ciblés, 5-7 KPIs essentiels chacun
-
-### 🛡️ Réponses aux Questions Jury Probables
-
-**Q1 : "Pourquoi pas un modèle IA plus complexe ?"**  
-**R :** "Objectif = aide décision rapide. Régression simple = interprétable + rapide à déployer. Si pertinence prouvée CAN 2025 → évolution Deep Learning pour Mondial 2030."
-
-**Q2 : "Volume données justifie-t-il le cloud ?"**  
-**R :** "Oui. Scalabilité pour Mondial 2030 (10x volume). Sécurité renforcée (données sensibles). Partage multi-acteurs simplifié. Coût maîtrisé (pay-as-you-go)."
-
-**Q3 : "Comment gérer données temps réel si aucune API fournie ?"**  
-**R :** "Projet = POC avec données simulées réalistes. En production : intégration APIs Waze, ONCF, CAF. Architecture prête (Event Hub déjà dans design)."
-
-**Q4 : "Différence vs simple reporting Power BI ?"**  
-**R :** "3 niveaux au-dessus :  
-1) Modèle étoile OLAP (pas CSV plats)  
-2) Module scoring/alertes (pas juste visuels)  
-3) Prédiction anticipative (pas descriptif passé)"
-
----
-
-## 🚀 ROADMAP POST-CAN 2025
-
-### Phase 1 : CAN 2025 (Production)
-- Monitoring 24/7 pendant tournoi
-- Collecte feedback organisateurs
-- Mesure KPIs (temps réaction, incidents prévenus)
-
-### Phase 2 : Analyse Post-Tournoi (Fév-Mars 2026)
-- Rapport impact (savings, efficacité)
-- Identification axes amélioration
-- Documentation lessons learned
-
-### Phase 3 : Évolution Mondial 2030
-- **Scale up** : 10x volume données (48 matchs → 104)
-- **Nouveaux modules** :
-  - Analyse sentiment réseaux sociaux (Twitter/X, Instagram)
-  - Prédiction demande hôtellerie
-  - Optimisation transports inter-villes (TGV, vols internes)
-- **Deep Learning** : Computer vision (comptage affluence caméras)
-
-### Phase 4 : Plateforme Événements Maroc
-- Réutilisation autres événements (Mawazine, Marathon Marrakech, FIRS)
-- Exportation modèle autres pays africains (expertise Maroc)
-
----
-
-## 📞 CONTACT & ÉQUIPE
-
-**Nom Projet :** CAN 2025 Decision Platform  
-**Framework :** SBI Student Challenge Edition  
-**Technologies :** Azure Cloud + Power BI + Python  
-**Durée Développement :** 4 semaines  
-**Statut :** Ready for Production (POC)  
-
----
-
-##
