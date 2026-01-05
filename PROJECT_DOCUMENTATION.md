@@ -1,12 +1,7 @@
-# 📘 CAN 2025 Command Center - Project Documentation
+#  CAN 2025 Command Center - Project Documentation
 
-**Version:** 1.0 (POC)  
-**Date:** January 2026  
-**Status:** Ready for Pilot / Jury Demo  
 
----
-
-## 1. 🌍 Project Overview
+## 1.  Project Overview
 
 The **CAN 2025 Pilotage Platform** is a data-driven Decision Support System (DSS) designed to ensure the operational success of the Africa Cup of Nations in Morocco. It centralizes critical data streams to anticipate incidents, optimize mobility, and ensure fan safety.
 
@@ -22,7 +17,7 @@ To demonstrate the platform's value, the POC includes a specific simulation:
 
 ---
 
-## 2. 🏗️ Architecture & Data Flow
+## 2.  Architecture & Data Flow
 
 The solution runs on a **Modern Data Lakehouse** architecture (Azure Synapse + Python), prioritizing flexibility and batch reliability over complex streaming infrastructure.
 
@@ -52,7 +47,7 @@ The solution runs on a **Modern Data Lakehouse** architecture (Azure Synapse + P
 
 ---
 
-## 3. ⚙️ ETL & Simulation
+## 3.  ETL & Simulation
 
 The core logic is encapsulated in a robust Python pipeline that handles Multi-City generation and Domain syncing.
 
@@ -60,7 +55,6 @@ The core logic is encapsulated in a robust Python pipeline that handles Multi-Ci
 *   `etl_pipeline.py`: Main driver. Generates simulated data, applies scenarios, and outputs Parquet.
 *   `risk_scoring.py`: (Optional Import) Reference class for the scoring logic verification.
 *   `gold_layer/`: Directory containing the analytics-ready `fact_operational_events.parquet`.
-*   `PowerBI_Specs.md`: Specifications for the visualization layer.
 
 ### Simulation Logic
 The ETL explicitly generates 5 event types per hour per zone:
@@ -72,7 +66,7 @@ The ETL explicitly generates 5 event types per hour per zone:
 
 ---
 
-## 4. 🧠 Risk Scoring & Scenarios
+## 4.  Risk Scoring & Scenarios
 
 The "Brain" of the platform is a deterministic, white-box algorithm ensuring explainability to government officials.
 
@@ -95,7 +89,7 @@ Risk Score = (
 
 ---
 
-## 5. 📊 Power BI Integration
+## 5.  Power BI Integration
 
 Three specialized views serve different stakeholders, all fed by the same Single Version of Truth (SVOT).
 
@@ -116,7 +110,7 @@ Three specialized views serve different stakeholders, all fed by the same Single
 
 ---
 
-## 6. ✅ Validation & Testing
+## 6.  Validation & Testing
 
 ### Verification Checklist
 | Check | Operational Goal | Status |
@@ -137,7 +131,7 @@ zone_id | time_id | domain   | score | severity
 
 ---
 
-## 7. 📖 Usage Instructions / Runbook
+## 7.  Usage Instructions / Runbook
 
 Follow these steps to reproduce the POC environment locally.
 
@@ -184,4 +178,4 @@ print(df[df['impact_score'] > 70].head())
 *   **Batch vs Streaming**: Elected for 15-min Batch to ensure system robustness. Architecture allows "lifting and shifting" to Event Hubs/Stream Analytics if sub-minute latency becomes mandatory for specific domains (e.g., Medical Emergencies) in 2030.
 
 ---
-**End of Document**
+
